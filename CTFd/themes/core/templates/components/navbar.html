@@ -1,16 +1,14 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
   <div class="container">
-    <a href="{{ url_for('views.static_html', route='/') }}" class="navbar-brand">
-      {% if Configs.ctf_logo %}
-        <img
-            class="img-responsive ctf_logo"
-            src="{{ url_for('views.files', path=Configs.ctf_logo) }}"
-            alt="{{ Configs.ctf_name }}"
-            height="25"
-        >
-      {% else %}
-        {{ Configs.ctf_name }}
-      {% endif %}
+    <a href="{{ url_for('views.static_html', route='/') }}" class="navbar-brand d-inline-flex align-items-center">
+      <img
+          class="img-responsive ctf_logo me-2"
+          src="{{ url_for('views.themes', theme='core', path='img/c3tf-logo.png') }}"
+          alt="{{ Configs.ctf_name or 'C3TF' }}"
+          height="32"
+          style="filter: drop-shadow(0 0 6px rgba(0, 255, 102, 0.5));"
+      >
+      <span>{{ Configs.ctf_name or 'C3TF' }}</span>
     </a>
 
     <button

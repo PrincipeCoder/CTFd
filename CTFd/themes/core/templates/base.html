@@ -4,12 +4,13 @@
   <title>{{ title or Configs.ctf_name }}</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="{{ Configs.ctf_small_icon }}" type="image/x-icon">
+  <link rel="shortcut icon" href="{{ url_for('views.themes', theme='core', path='img/c3tf-logo.png') }}" type="image/png">
 
   {{ meta | safe }}
 
   {% block stylesheets %}
     {{ Assets.css("assets/scss/main.scss") }}
+    <link rel="stylesheet" href="{{ url_for('views.themes', theme='core', path='css/cyberpunk-terminal.css') }}">
   {% endblock %}
 
   {{ Plugins.styles }}

@@ -1,0 +1,922 @@
+/**
+ * ==============================================================================
+ * CTFd CYBERPUNK / HACKER TERMINAL DARK THEME
+ * Style Sheet: cyberpunk-terminal.css
+ * ==============================================================================
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* ==============================================================================
+   1. DESIGN TOKENS & SYSTEM VARIABLES
+   ============================================================================== */
+:root,
+[data-bs-theme="dark"],
+[data-bs-theme="light"],
+html, body {
+  /* Cyber Palette */
+  --cyber-bg-black: #060907;
+  --cyber-bg-surface: rgba(11, 15, 14, 0.92);
+  --cyber-bg-card: rgba(14, 21, 17, 0.85);
+  --cyber-bg-card-hover: rgba(20, 32, 25, 0.95);
+  --cyber-bg-modal: rgba(8, 13, 10, 0.97);
+
+  /* Terminal Neon Greens */
+  --cyber-neon: #00ff66;
+  --cyber-neon-bright: #3bfd87;
+  --cyber-neon-glow: rgba(0, 255, 102, 0.35);
+  --cyber-neon-subtle: rgba(0, 255, 102, 0.12);
+  --cyber-neon-dim: rgba(0, 255, 102, 0.05);
+
+  /* Deep Emerald & Cyan Borders */
+  --cyber-green-deep: #003b22;
+  --cyber-green-emerald: #10b981;
+  --cyber-cyan-dark: #082f28;
+  --cyber-border-muted: rgba(0, 255, 102, 0.22);
+  --cyber-border-active: rgba(0, 255, 102, 0.7);
+  --cyber-charcoal: #18181b;
+
+  /* Typography Colors */
+  --cyber-text-main: #f3f4f6;
+  --cyber-text-muted: #9ca3af;
+  --cyber-text-dim: #6b7280;
+  --cyber-text-neon: #00ff66;
+
+  /* Functional Status Colors */
+  --cyber-solved: #00ff66;
+  --cyber-danger: #ef4444;
+  --cyber-danger-glow: rgba(239, 68, 68, 0.35);
+  --cyber-warning: #f59e0b;
+  --cyber-info: #06b6d4;
+
+  /* Font Families */
+  --font-mono: 'Fira Code', 'JetBrains Mono', 'Courier New', monospace;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Bootstrap 5 Overrides */
+  --bs-body-bg: var(--cyber-bg-black) !important;
+  --bs-body-color: var(--cyber-text-main) !important;
+  --bs-primary: #00ff66;
+  --bs-primary-rgb: 0, 255, 102;
+  --bs-secondary: #003b22;
+  --bs-secondary-rgb: 0, 59, 34;
+  --bs-success: #00ff66;
+  --bs-success-rgb: 0, 255, 102;
+  --bs-danger: #ef4444;
+  --bs-danger-rgb: 239, 68, 68;
+  --bs-warning: #f59e0b;
+  --bs-warning-rgb: 245, 158, 11;
+  --bs-info: #10b981;
+  --bs-info-rgb: 16, 185, 129;
+  --bs-dark: #080c0a;
+  --bs-dark-rgb: 8, 12, 10;
+  --bs-tertiary-bg: #090e0b !important;
+  --bs-secondary-bg: #0c130f !important;
+  --bs-border-color: var(--cyber-border-muted) !important;
+  --bs-link-color: var(--cyber-neon) !important;
+  --bs-link-hover-color: var(--cyber-neon-bright) !important;
+}
+
+/* ==============================================================================
+   2. GLOBAL RESET, BACKGROUND MATRIX & TYPOGRAPHY
+   ============================================================================== */
+html {
+  color-scheme: dark !important;
+  background-color: var(--cyber-bg-black) !important;
+}
+
+body {
+  background-color: var(--cyber-bg-black) !important;
+  background-image: 
+    linear-gradient(rgba(0, 255, 102, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 102, 0.035) 1px, transparent 1px),
+    radial-gradient(circle at 50% 0%, rgba(0, 255, 102, 0.09) 0%, transparent 65%) !important;
+  background-size: 36px 36px, 36px 36px, 100% 100% !important;
+  background-attachment: fixed !important;
+  color: var(--cyber-text-main) !important;
+  font-family: var(--font-sans) !important;
+  min-height: 100vh;
+  letter-spacing: 0.2px;
+}
+
+::selection {
+  background: var(--cyber-neon);
+  color: #050505;
+  text-shadow: none;
+}
+
+/* Custom Cyber Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050706;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--cyber-green-deep);
+  border: 1px solid rgba(0, 255, 102, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--cyber-neon);
+  box-shadow: 0 0 10px var(--cyber-neon);
+}
+
+/* Terminal Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-mono) !important;
+  color: var(--cyber-text-main) !important;
+  letter-spacing: 1.5px;
+  font-weight: 600;
+}
+
+code, kbd, pre, samp {
+  font-family: var(--font-mono) !important;
+}
+
+/* Suppress Light Theme Overrides */
+.bg-light, .bg-white {
+  background-color: var(--cyber-bg-surface) !important;
+}
+.text-dark {
+  color: var(--cyber-text-main) !important;
+}
+.text-muted {
+  color: var(--cyber-text-muted) !important;
+}
+
+/* ==============================================================================
+   3. NAVIGATION BAR (CYBER HUD HEADER)
+   ============================================================================== */
+.navbar {
+  background: rgba(6, 10, 8, 0.95) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border-bottom: 1px solid var(--cyber-border-muted) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 255, 102, 0.08) !important;
+  transition: all 0.3s ease;
+  z-index: 1030;
+}
+
+.navbar-brand {
+  font-family: var(--font-mono) !important;
+  font-weight: 700 !important;
+  color: var(--cyber-neon) !important;
+  text-shadow: 0 0 10px var(--cyber-neon-glow);
+  letter-spacing: 1.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.navbar-brand::before {
+  content: "root@c3tf:~#";
+  font-size: 0.78rem;
+  color: var(--cyber-green-emerald);
+  opacity: 0.85;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  color: var(--cyber-text-muted) !important;
+  padding: 0.5rem 0.85rem !important;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link:focus,
+.navbar-dark .navbar-nav .nav-link.active {
+  color: var(--cyber-neon) !important;
+  text-shadow: 0 0 8px var(--cyber-neon-glow);
+}
+
+.navbar-dark .navbar-nav .nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 15%;
+  width: 0%;
+  height: 2px;
+  background: var(--cyber-neon);
+  box-shadow: 0 0 8px var(--cyber-neon);
+  transition: width 0.25s ease;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover::after,
+.navbar-dark .navbar-nav .nav-link.active::after {
+  width: 70%;
+}
+
+/* Dropdown Menus */
+.dropdown-menu {
+  background: var(--cyber-bg-surface) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid var(--cyber-border-muted) !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 255, 102, 0.1) !important;
+  border-radius: 6px;
+  padding: 0.5rem 0;
+}
+
+.dropdown-item {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--cyber-text-main) !important;
+  padding: 0.5rem 1.2rem;
+  transition: all 0.2s ease;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+  background: var(--cyber-neon-subtle) !important;
+  color: var(--cyber-neon) !important;
+  padding-left: 1.5rem;
+}
+
+/* ==============================================================================
+   4. JUMBOTRON / HERO TERMINAL BANNERS
+   ============================================================================== */
+.jumbotron {
+  background: linear-gradient(180deg, rgba(12, 18, 14, 0.9) 0%, rgba(6, 9, 7, 0.98) 100%) !important;
+  border-top: 1px solid rgba(0, 255, 102, 0.15) !important;
+  border-bottom: 1px solid var(--cyber-border-muted) !important;
+  box-shadow: inset 0 0 40px rgba(0, 255, 102, 0.04);
+  position: relative;
+  overflow: hidden;
+  padding: 3rem 1rem !important;
+}
+
+.jumbotron::before {
+  content: "● SEC_NET // TERMINAL ONLINE // ACCESS LEVEL: CTF-USER";
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--cyber-green-emerald);
+  letter-spacing: 2.5px;
+  margin-bottom: 0.75rem;
+  text-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+}
+
+.jumbotron h1 {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: #ffffff !important;
+  text-shadow: 0 0 18px var(--cyber-neon-glow), 0 0 35px rgba(0, 255, 102, 0.15) !important;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+/* ==============================================================================
+   5. CHALLENGES BOARD & CARDS
+   ============================================================================== */
+.category-header h3 {
+  font-family: var(--font-mono) !important;
+  color: var(--cyber-text-main) !important;
+  font-size: 1.25rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px dashed var(--cyber-border-muted);
+}
+
+.category-header h3::before {
+  content: ">";
+  color: var(--cyber-neon);
+  font-weight: 700;
+  text-shadow: 0 0 8px var(--cyber-neon-glow);
+}
+
+/* Challenge Button / Card */
+.challenge-button {
+  background: var(--cyber-bg-card) !important;
+  border: 1px solid var(--cyber-border-muted) !important;
+  border-radius: 8px !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4) !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  position: relative;
+  overflow: hidden;
+  padding: 1.2rem 1rem !important;
+}
+
+.challenge-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--cyber-green-deep);
+  transition: all 0.25s ease;
+}
+
+.challenge-button:hover {
+  background: var(--cyber-bg-card-hover) !important;
+  border-color: var(--cyber-neon) !important;
+  transform: translateY(-4px) !important;
+  box-shadow: 0 0 20px var(--cyber-neon-glow), 0 8px 25px rgba(0, 0, 0, 0.6) !important;
+}
+
+.challenge-button:hover::before {
+  background: var(--cyber-neon);
+  box-shadow: 0 0 10px var(--cyber-neon);
+}
+
+.challenge-inner p {
+  font-family: var(--font-mono) !important;
+  font-weight: 600;
+  font-size: 0.98rem;
+  color: var(--cyber-text-main);
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.5px;
+}
+
+.challenge-inner span {
+  font-family: var(--font-mono) !important;
+  display: inline-block;
+  padding: 0.2rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--cyber-neon);
+  background: rgba(0, 255, 102, 0.08);
+  border: 1px solid rgba(0, 255, 102, 0.3);
+  border-radius: 4px;
+  letter-spacing: 1px;
+}
+
+/* Solved Challenge State */
+.challenge-solved,
+[data-bs-theme="dark"] .challenge-button.challenge-solved,
+[data-bs-theme="light"] .challenge-button.challenge-solved {
+  background: linear-gradient(135deg, rgba(0, 59, 34, 0.6) 0%, rgba(16, 185, 129, 0.2) 100%) !important;
+  border-color: var(--cyber-neon) !important;
+  box-shadow: 0 0 15px rgba(0, 255, 102, 0.25), inset 0 0 12px rgba(0, 255, 102, 0.1) !important;
+}
+
+.challenge-solved::before {
+  background: var(--cyber-neon) !important;
+  box-shadow: 0 0 12px var(--cyber-neon) !important;
+}
+
+.challenge-solved .challenge-inner p {
+  color: #ffffff !important;
+  text-shadow: 0 0 8px var(--cyber-neon-glow);
+}
+
+.challenge-solved .challenge-inner span {
+  background: var(--cyber-neon) !important;
+  color: #050505 !important;
+  border-color: var(--cyber-neon) !important;
+  box-shadow: 0 0 8px var(--cyber-neon-glow);
+}
+
+/* ==============================================================================
+   6. CARDS, CONTAINERS & SETUP WIZARD
+   ============================================================================== */
+.card {
+  background: var(--cyber-bg-card) !important;
+  border: 1px solid var(--cyber-border-muted) !important;
+  color: var(--cyber-text-main) !important;
+  backdrop-filter: blur(10px) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6) !important;
+  border-radius: 8px !important;
+}
+
+.card-header,
+.card-footer {
+  background: rgba(8, 12, 10, 0.7) !important;
+  border-color: var(--cyber-border-muted) !important;
+  color: var(--cyber-text-main) !important;
+}
+
+.card-body {
+  color: var(--cyber-text-main) !important;
+}
+
+.card-radio:checked + .card {
+  background-color: rgba(0, 59, 34, 0.35) !important;
+  border-color: var(--cyber-neon) !important;
+  box-shadow: 0 0 18px var(--cyber-neon-glow) !important;
+}
+
+/* ==============================================================================
+   7. CHALLENGE DETAILS MODAL WINDOW
+   ============================================================================== */
+.modal-backdrop.show {
+  background-color: rgba(3, 6, 4, 0.88) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+}
+
+#challenge-window .modal-content,
+.modal-content {
+  background: var(--cyber-bg-modal) !important;
+  backdrop-filter: blur(16px) !important;
+  border: 1px solid var(--cyber-neon) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 0 35px rgba(0, 255, 102, 0.22), 0 20px 50px rgba(0, 0, 0, 0.9) !important;
+  color: var(--cyber-text-main);
+  position: relative;
+}
+
+/* Close button */
+.btn-close {
+  filter: invert(1) hue-rotate(85deg) brightness(1.6) !important;
+  opacity: 0.75;
+  transition: all 0.2s ease;
+}
+
+.btn-close:hover {
+  opacity: 1;
+  transform: rotate(90deg);
+}
+
+/* Modal Tabs */
+.modal-content .nav-tabs {
+  border-bottom: 1px solid var(--cyber-border-muted) !important;
+  gap: 0.4rem;
+}
+
+.modal-content .nav-tabs .nav-link {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--cyber-text-muted) !important;
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 2px solid transparent !important;
+  padding: 0.5rem 1rem;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+}
+
+.modal-content .nav-tabs .nav-link:hover {
+  color: var(--cyber-neon) !important;
+}
+
+.modal-content .nav-tabs .nav-link.active {
+  color: var(--cyber-neon) !important;
+  border-bottom: 2px solid var(--cyber-neon) !important;
+  text-shadow: 0 0 8px var(--cyber-neon-glow);
+}
+
+/* Modal Typography & Elements */
+.challenge-name {
+  font-family: var(--font-mono) !important;
+  font-weight: 700;
+  font-size: 1.75rem;
+  color: #ffffff;
+  text-shadow: 0 0 12px var(--cyber-neon-glow);
+  letter-spacing: 1.5px;
+}
+
+.challenge-value {
+  font-family: var(--font-mono) !important;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--cyber-neon);
+  text-shadow: 0 0 8px var(--cyber-neon-glow);
+}
+
+.challenge-tag {
+  font-family: var(--font-mono) !important;
+  background: rgba(0, 59, 34, 0.7) !important;
+  border: 1px solid rgba(0, 255, 102, 0.4) !important;
+  color: var(--cyber-neon) !important;
+  font-size: 0.75rem !important;
+  padding: 0.35rem 0.7rem !important;
+  border-radius: 4px !important;
+  letter-spacing: 0.5px;
+}
+
+.challenge-desc {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--cyber-text-main);
+  display: block;
+  margin: 1.5rem 0;
+}
+
+.challenge-desc pre,
+.challenge-desc code {
+  background: #040705 !important;
+  border: 1px solid var(--cyber-border-muted);
+  border-radius: 4px;
+  color: var(--cyber-neon-bright);
+}
+
+.challenge-desc pre {
+  padding: 1rem;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+/* Connection info terminal snippet */
+.challenge-connection-info code {
+  background: #030604 !important;
+  border: 1px solid rgba(0, 255, 102, 0.4) !important;
+  color: var(--cyber-neon) !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 6px !important;
+  display: inline-block;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.9), 0 0 10px rgba(0, 255, 102, 0.1);
+}
+
+/* Hints Details/Summary */
+.challenge-hints details {
+  background: rgba(14, 21, 17, 0.6);
+  border: 1px solid var(--cyber-border-muted);
+  border-radius: 6px;
+  padding: 0.6rem 1rem;
+  margin-bottom: 0.75rem;
+  transition: all 0.2s ease;
+}
+
+.challenge-hints details:hover {
+  border-color: rgba(0, 255, 102, 0.4);
+}
+
+.challenge-hints summary {
+  font-family: var(--font-mono);
+  color: var(--cyber-green-emerald);
+  cursor: pointer;
+  font-size: 0.88rem;
+  outline: none;
+}
+
+.challenge-hints summary:hover {
+  color: var(--cyber-neon);
+}
+
+/* File Download Buttons */
+.btn-file {
+  background: rgba(0, 59, 34, 0.5) !important;
+  border: 1px solid rgba(0, 255, 102, 0.3) !important;
+  color: var(--cyber-text-main) !important;
+  font-family: var(--font-mono);
+  transition: all 0.2s ease;
+}
+
+.btn-file:hover {
+  background: rgba(0, 255, 102, 0.15) !important;
+  border-color: var(--cyber-neon) !important;
+  color: var(--cyber-neon) !important;
+  box-shadow: 0 0 10px var(--cyber-neon-glow);
+}
+
+/* ==============================================================================
+   8. INPUTS, BUTTONS & SUBMISSION CONTROLS
+   ============================================================================== */
+.form-control,
+.form-select,
+.challenge-input {
+  background: rgba(6, 10, 8, 0.9) !important;
+  border: 1px solid rgba(0, 255, 102, 0.25) !important;
+  color: var(--cyber-text-main) !important;
+  font-family: var(--font-mono) !important;
+  border-radius: 6px !important;
+  transition: all 0.25s ease !important;
+}
+
+.form-control:focus,
+.form-select:focus,
+.challenge-input:focus {
+  border-color: var(--cyber-neon) !important;
+  box-shadow: 0 0 15px var(--cyber-neon-glow) !important;
+  color: #ffffff !important;
+  background: rgba(8, 14, 11, 0.95) !important;
+}
+
+.form-control::placeholder,
+.challenge-input::placeholder {
+  color: var(--cyber-text-dim) !important;
+  font-style: italic;
+}
+
+/* Terminal Buttons */
+.btn-primary,
+.challenge-submit {
+  background: transparent !important;
+  border: 1px solid var(--cyber-neon) !important;
+  color: var(--cyber-neon) !important;
+  font-family: var(--font-mono) !important;
+  font-weight: 600 !important;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 6px !important;
+  padding: 0.6rem 1.25rem;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.challenge-submit:hover,
+.challenge-submit:focus {
+  background: var(--cyber-neon) !important;
+  color: #050505 !important;
+  box-shadow: 0 0 20px var(--cyber-neon-glow) !important;
+  transform: translateY(-2px);
+}
+
+.btn-outline-secondary,
+.btn-secondary {
+  background: rgba(14, 21, 17, 0.8) !important;
+  border: 1px solid var(--cyber-border-muted) !important;
+  color: var(--cyber-text-muted) !important;
+  font-family: var(--font-mono) !important;
+  transition: all 0.2s ease !important;
+}
+
+.btn-outline-secondary:hover,
+.btn-secondary:hover {
+  background: rgba(22, 34, 27, 0.95) !important;
+  border-color: var(--cyber-neon) !important;
+  color: var(--cyber-neon) !important;
+  box-shadow: 0 0 12px var(--cyber-neon-glow) !important;
+}
+
+/* ==============================================================================
+   9. NOTIFICATION ALERTS (CYBER SECURITY STATUS)
+   ============================================================================== */
+.alert {
+  font-family: var(--font-mono) !important;
+  border-radius: 6px !important;
+  backdrop-filter: blur(8px);
+}
+
+.alert-success {
+  background: rgba(0, 59, 34, 0.75) !important;
+  border: 1px solid var(--cyber-neon) !important;
+  color: var(--cyber-neon) !important;
+  text-shadow: 0 0 8px var(--cyber-neon-glow);
+  box-shadow: 0 0 16px rgba(0, 255, 102, 0.25);
+}
+
+.alert-danger {
+  background: rgba(60, 10, 10, 0.75) !important;
+  border: 1px solid var(--cyber-danger) !important;
+  color: #fca5a5 !important;
+  text-shadow: 0 0 8px var(--cyber-danger-glow);
+  box-shadow: 0 0 16px var(--cyber-danger-glow);
+}
+
+.alert-warning {
+  background: rgba(55, 35, 5, 0.75) !important;
+  border: 1px solid var(--cyber-warning) !important;
+  color: #fde68a !important;
+}
+
+.alert-info {
+  background: rgba(6, 40, 55, 0.75) !important;
+  border: 1px solid var(--cyber-info) !important;
+  color: #a5f3fc !important;
+}
+
+/* ==============================================================================
+   10. SCOREBOARD, CHARTS & TABLES
+   ============================================================================== */
+#score-graph {
+  background: var(--cyber-bg-surface);
+  border: 1px solid var(--cyber-border-muted);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+}
+
+.nav-pills .nav-link {
+  font-family: var(--font-mono) !important;
+  font-size: 0.85rem;
+  background: var(--cyber-bg-card);
+  border: 1px solid var(--cyber-border-muted);
+  color: var(--cyber-text-muted);
+  border-radius: 6px;
+  margin: 0 4px;
+  transition: all 0.2s ease;
+}
+
+.nav-pills .nav-link:hover {
+  border-color: var(--cyber-neon);
+  color: var(--cyber-neon);
+}
+
+.nav-pills .nav-link.active {
+  background: var(--cyber-neon) !important;
+  color: #050505 !important;
+  font-weight: 700;
+  border-color: var(--cyber-neon) !important;
+  box-shadow: 0 0 14px var(--cyber-neon-glow);
+}
+
+/* Scoreboard Table */
+.table {
+  color: var(--cyber-text-main) !important;
+  border-color: var(--cyber-border-muted) !important;
+  font-family: var(--font-mono) !important;
+  font-size: 0.9rem;
+}
+
+.table > thead {
+  background: rgba(14, 21, 17, 0.95) !important;
+}
+
+.table > thead > tr > th {
+  color: var(--cyber-neon) !important;
+  border-bottom: 2px solid var(--cyber-border-active) !important;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 0.85rem;
+  padding: 1rem;
+}
+
+.table > tbody > tr {
+  background: rgba(10, 15, 12, 0.5) !important;
+  border-bottom: 1px solid rgba(0, 255, 102, 0.08) !important;
+  transition: all 0.2s ease;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background: rgba(14, 21, 17, 0.35) !important;
+}
+
+.table > tbody > tr:hover {
+  background: rgba(0, 255, 102, 0.08) !important;
+  border-left: 3px solid var(--cyber-neon);
+}
+
+.table td, .table th {
+  padding: 0.9rem 1rem !important;
+}
+
+.table a {
+  color: var(--cyber-text-main) !important;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.table a:hover {
+  color: var(--cyber-neon) !important;
+  text-shadow: 0 0 6px var(--cyber-neon-glow);
+}
+
+/* Top 3 Scoreboard Highlights */
+.table tbody tr:nth-child(1) th,
+.table tbody tr:nth-child(1) td a {
+  color: #ffd700 !important;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.45);
+}
+
+.table tbody tr:nth-child(2) th,
+.table tbody tr:nth-child(2) td a {
+  color: #e2e8f0 !important;
+  text-shadow: 0 0 8px rgba(226, 232, 240, 0.35);
+}
+
+.table tbody tr:nth-child(3) th,
+.table tbody tr:nth-child(3) td a {
+  color: #f97316 !important;
+  text-shadow: 0 0 8px rgba(249, 115, 22, 0.35);
+}
+
+/* ==============================================================================
+   11. BADGES, STATUS PILLS & ANIMATIONS
+   ============================================================================== */
+.badge {
+  font-family: var(--font-mono) !important;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.badge-notification {
+  background: var(--cyber-danger) !important;
+  box-shadow: 0 0 8px var(--cyber-danger-glow);
+}
+
+/* Pulse animation for active indicators */
+@keyframes cyber-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 255, 102, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(0, 255, 102, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 255, 102, 0);
+  }
+}
+
+.cyber-status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: var(--cyber-neon);
+  border-radius: 50%;
+  margin-right: 6px;
+  animation: cyber-pulse 2s infinite;
+}
+
+/* ==============================================================================
+   12. FOOTER
+   ============================================================================== */
+footer.footer {
+  border-top: 1px solid var(--cyber-border-muted) !important;
+  background: rgba(6, 10, 8, 0.95) !important;
+  padding: 1.5rem 0 !important;
+  margin-top: 4rem;
+  font-family: var(--font-mono);
+}
+
+footer.footer small {
+  color: var(--cyber-text-muted) !important;
+  letter-spacing: 1px;
+}
+
+footer.footer a:hover small {
+  color: var(--cyber-neon) !important;
+  text-shadow: 0 0 8px var(--cyber-neon-glow);
+}
+
+/* ==============================================================================
+   13. C3TF HERO LOGO & SPONSORS SHOWCASE
+   ============================================================================== */
+.c3tf-hero-logo {
+  max-height: 190px !important;
+  max-width: 200px !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain !important;
+  margin: 0 auto 1rem !important;
+  display: block !important;
+  filter: drop-shadow(0 0 20px rgba(0, 255, 102, 0.45)) !important;
+  transition: all 0.3s ease;
+}
+
+.c3tf-hero-logo:hover {
+  filter: drop-shadow(0 0 30px rgba(0, 255, 102, 0.7)) !important;
+  transform: scale(1.03);
+}
+
+.cyber-sponsor-card {
+  background: rgba(12, 18, 15, 0.75) !important;
+  border: 1px solid rgba(0, 255, 102, 0.22) !important;
+  border-radius: 8px !important;
+  padding: 10px 14px !important;
+  height: 105px !important;
+  max-height: 105px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.cyber-sponsor-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 102, 0.5), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cyber-sponsor-card:hover {
+  border-color: var(--cyber-neon) !important;
+  background: rgba(18, 28, 22, 0.92) !important;
+  transform: translateY(-4px) !important;
+  box-shadow: 0 0 22px rgba(0, 255, 102, 0.35), 0 8px 25px rgba(0, 0, 0, 0.7) !important;
+}
+
+.cyber-sponsor-card:hover::before {
+  opacity: 1;
+}
+
+.cyber-sponsor-img {
+  max-height: 50px !important;
+  max-width: 85% !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain !important;
+  filter: grayscale(0.8) brightness(1.2) contrast(1.05) !important;
+  transition: all 0.3s ease;
+}
+
+.cyber-sponsor-card:hover .cyber-sponsor-img {
+  filter: grayscale(0) brightness(1.1) drop-shadow(0 0 8px rgba(0, 255, 102, 0.35)) !important;
+  transform: scale(1.06);
+}
+
+
